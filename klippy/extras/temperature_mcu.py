@@ -5,7 +5,7 @@
 # This file may be distributed under the terms of the GNU GPLv3 license.
 import logging
 
-from extras.danger_options import get_danger_options
+from .danger_options import get_danger_options
 
 SAMPLE_TIME = 0.001
 SAMPLE_COUNT = 8
@@ -55,9 +55,6 @@ class PrinterTemperatureMCU:
                 range_check_count=self._danger_check_count,
             )
             return
-        self.printer.register_event_handler(
-            "klippy:mcu_identify", self._mcu_identify
-        )
         self.mcu_adc.get_mcu().register_config_callback(self._build_config)
 
     def setup_callback(self, temperature_callback):
@@ -79,9 +76,6 @@ class PrinterTemperatureMCU:
 
     def calc_base(self, temp, adc):
         return temp - adc * self.slope
-
-    def _mcu_identify(self):
-        self._build_config()
 
     def _build_config(self):
         # Obtain mcu information
@@ -110,6 +104,9 @@ class PrinterTemperatureMCU:
             ("stm32l4", self.config_stm32g0),
             ("stm32h723", self.config_stm32h723),
             ("stm32h7", self.config_stm32h7),
+            ("gd32e230x8", self.config_gd32e230x8),
+            ("gd32f303xe", self.config_gd32f303xe),
+            ("gd32f303xb", self.config_gd32f303xb),
             ("", self.config_unknown),
         ]
         for name, func in cfg_funcs:
@@ -136,11 +133,24 @@ class PrinterTemperatureMCU:
             maxval=max(adc_range),
             range_check_count=self._danger_check_count,
         )
+        self.mcu_adc._build_config()
 
     def config_unknown(self):
         raise self.printer.config_error(
             "MCU temperature not supported on %s" % (self.mcu_type,)
         )
+
+    def config_gd32e230x8(self):
+        self.slope = 3.3 / -0.004300
+        self.base_temperature = self.calc_base(25.0, 1.45 / 3.3)
+
+    def config_gd32f303xe(self):
+        self.slope = 3.3 / -0.004100
+        self.base_temperature = self.calc_base(25.0, 1.45 / 3.3)
+
+    def config_gd32f303xb(self):
+        self.slope = 3.3 / -0.004100
+        self.base_temperature = self.calc_base(25.0, 1.45 / 3.3)
 
     def config_rp2040(self):
         self.slope = self.reference_voltage / -0.001721

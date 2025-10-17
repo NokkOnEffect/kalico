@@ -4,7 +4,7 @@
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
 import logging, collections
-import stepper
+from klippy import stepper
 
 
 ######################################################################
@@ -19,8 +19,16 @@ def ffs(mask):
 
 class FieldHelper:
     def __init__(
-        self, all_fields, signed_fields=[], field_formatters={}, registers=None
+        self,
+        all_fields,
+        signed_fields=None,
+        field_formatters=None,
+        registers=None,
     ):
+        if field_formatters is None:
+            field_formatters = {}
+        if signed_fields is None:
+            signed_fields = []
         self.all_fields = all_fields
         self.signed_fields = {sf: 1 for sf in signed_fields}
         self.field_formatters = field_formatters
@@ -753,7 +761,7 @@ def TMCtstepHelper(mcu_tmc, velocity, pstepper=None, config=None):
 
 
 # Helper to configure stealthChop-spreadCycle transition velocity
-def TMCStealthchopHelper(config, mcu_tmc, tmc_freq):
+def TMCStealthchopHelper(config, mcu_tmc):
     fields = mcu_tmc.get_fields()
     en_pwm_mode = False
     velocity = config.getfloat("stealthchop_threshold", None, minval=0.0)
@@ -773,13 +781,14 @@ def TMCStealthchopHelper(config, mcu_tmc, tmc_freq):
 
 
 class BaseTMCCurrentHelper:
-    def __init__(self, config, mcu_tmc, max_current):
+    def __init__(self, config, mcu_tmc, max_current, has_sense_resistor=True):
         self.printer = config.get_printer()
         self.name = config.get_name().split()[-1]
         self.mcu_tmc = mcu_tmc
         self.fields = mcu_tmc.get_fields()
 
-        self.sense_resistor = config.getfloat("sense_resistor", above=0.0)
+        if has_sense_resistor:
+            self.sense_resistor = config.getfloat("sense_resistor", above=0.0)
 
         # config_{run|hold|home}_current
         # represents an initial value set via config file
@@ -825,7 +834,7 @@ class BaseTMCCurrentHelper:
         return needs
 
     def needs_hold_current_change(self, hold_current):
-        needs = hold_current != self.req_run_current
+        needs = hold_current != self.req_hold_current
         logging.info(f"tmc {self.name}: needs_hold_current_change {needs}")
         return needs
 
@@ -847,7 +856,9 @@ class BaseTMCCurrentHelper:
     def set_current_for_homing(self, print_time, pre_homing) -> float:
         if pre_homing and self.needs_home_current_change():
             self.set_current(
-                self.req_home_current, self.req_hold_current, print_time
+                self.req_home_current,
+                self.req_hold_current,
+                print_time,
             )
             return self.current_change_dwell_time
         elif not pre_homing and self.needs_run_current_change():
@@ -865,6 +876,9 @@ class BaseTMCCurrentHelper:
         ):
             return False
         return True
+
+    def apply_current(self, print_time):
+        pass
 
     def set_current(self, new_current, hold_current, print_time, force=False):
         if not self.needs_current_changes(new_current, hold_current, force):

@@ -8,6 +8,26 @@ All dates in this document are approximate.
 
 ## Changes
 
+20250817: The gcode_button section adds a new option `debounce_delay` that
+takes a time in seconds to debounce the state of the button before any action
+is taken. It defaults to 0 which causes it to act as if there is no debouncing.
+
+20250816: The filament_switch_sensor adds a new option `debounce_delay` that
+takes a time in seconds to debounce the state of the switch before any action
+is taken. It defaults to 0 which causes it to act as if there is no debouncing.
+
+20250426: Option `CHIPS=<chip_name>` in `TEST_RESONANCES` and
+`SHAPER_CALIBRATE` requires specifying the full name(s) of the accel
+chip(s). For example, `adxl345 rpi` instead of short name - `rpi`.
+
+20250207: The `driver_CS` parameter has been added to tmc5160. Previously the
+CS value was nearly always set to 31. Now, the default is 31, but may be changed.
+
+20250121: The `second_homing_speed` default value in the stepper config section
+is now set to `homing_speed` if sensorless homing is enabled.
+
+20250107: The `rref` parameter for tmc2240 is now mandatory with no default value.
+
 20241202: The `sense_resistor` parameter is now mandatory with no default value.
 
 20241201: In some cases Klipper may have ignored leading characters or
@@ -21,6 +41,11 @@ deprecated. It will be removed in the near future. Use
 [`min_power`](./Config_Reference.md#fans)
 instead. The `printer[fan object].speed` status will be replaced by
 `printer[fan object].value` and `printer[fan object].power`.
+
+20241223: The `CLEAR_RETRACTION` command does not reset parameters to
+default config values anymore, a [`RESET_RETRACTION`](./G-Codes.md#reset_retraction)
+command was added to achieve this. Automatic resetting behavior on
+events was removed.
 
 20240430: The `adc_ignore_limits` parameter in the `[danger_options]`
 config section has been renamed to `temp_ignore_limits` and it now

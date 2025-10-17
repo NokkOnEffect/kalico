@@ -199,6 +199,23 @@ gcode:
   !    emit(f"G0 X{coordinate[0]} Y{coordinate[1] + 0.25 * wipe} Z9.7 F12000")
 ```
 
+For ease of writing python macros, they may be read from a `.py` file. Python type stubs for macros are also available under `klippy.macro`.
+
+```
+## printer.cfg
+
+[gcode_macro clean_nozzle]
+gcode: !!include my_macros/clean_nozzle.py
+
+## my_macros/clean_nozzle.py
+
+wipe_count = 8
+emit("G90")
+emit("G0 Z15 F300")
+...
+
+```
+
 #### Python: Rawparams
 
 ```
@@ -312,10 +329,12 @@ gcode sequence:
 
 ```
 [delayed_gcode clear_display]
+description: Clear the LCD display message
 gcode:
   M117
 
 [gcode_macro load_filament]
+description: Load 50mm of filament
 gcode:
  G91
  G1 E50

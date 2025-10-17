@@ -4,7 +4,7 @@
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
 import logging
-import mathutil
+from klippy import mathutil
 from . import probe
 
 
@@ -139,7 +139,7 @@ class RetryHelper:
 
     def check_retry(self, z_positions):
         if self.max_retries == 0:
-            return
+            return "done"
         error = round(max(z_positions) - min(z_positions), 6)
         self.gcode.respond_info(
             "Retries: %d/%d %s: %0.6f tolerance: %0.6f"
