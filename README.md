@@ -2,254 +2,144 @@
 
 [![Action Status](https://github.com/KalicoCrew/kalico/actions/workflows/ci-build_test.yaml/badge.svg?branch=main)](https://github.com/KalicoCrew/kalico/actions/workflows/ci-build_test.yaml)
 
-# Welcome to the Kalico project!
-
-This is a community-maintained fork of the [Klipper](https://github.com/Klipper3d/klipper) firmware.
-
-Our goal is to support features and behavior that could be "risky" if used incorrectly.
-
-If I want my printer to light itself on fire, I should be able to make my printer light itself on fire.
-
-See the [Kalico Additions document](https://docs.kalico.gg/Kalico_Additions.html) for more information on *some* of the differences from Klipper.
-
-## Features merged into the main branch:
-
-- [core: no Python2 tests; no PRU boards](https://github.com/KalicoCrew/kalico/pull/39)
-
-- [core: git-untracked folder, plugins for user-plugins](https://github.com/KalicoCrew/kalico/pull/82)
-
-- [core: danger_options](https://github.com/KalicoCrew/kalico/pull/67)
-
-- [core: rotate log file at every restart](https://github.com/KalicoCrew/kalico/pull/181)
-
-- [core: options for API server socket file mode, user, and group](https://github.com/KalicoCrew/kalico/pull/612)
-
-- [core: options to change mode and group of linux mcu psuedoterminal](https://github.com/KalicoCrew/kalico/pull/692)
-
-- [fan: normalising Fan PWM power](https://github.com/KalicoCrew/kalico/pull/44) ([klipper#6307](https://github.com/Klipper3d/klipper/pull/6307))
-
-- [fan: reverse FAN](https://github.com/KalicoCrew/kalico/pull/51) ([klipper#4983](https://github.com/Klipper3d/klipper/pull/4983))
-
-- [heaters: modify PID without reload](https://github.com/KalicoCrew/kalico/pull/35)
-
-- [heaters: MPC temperature control](https://github.com/KalicoCrew/kalico/pull/333)
-
-- [heaters: velocity PID](https://github.com/KalicoCrew/kalico/pull/47) ([klipper#6272](https://github.com/Klipper3d/klipper/pull/6272))
-
-- [heaters: PID-Profiles](https://github.com/KalicoCrew/kalico/pull/162)
-
-- [heaters: expose heater thermistor out of min/max](https://github.com/KalicoCrew/kalico/pull/182)
-
-- [heaters: dual loop pid control](https://github.com/KalicoCrew/kalico/pull/735)
-
-- [heaters/fan: new heated_fan module](https://github.com/KalicoCrew/kalico/pull/259)
-
-- [gcode: jinja2.ext.do extension](https://github.com/KalicoCrew/kalico/pull/26) ([klipper#5149](https://github.com/Klipper3d/klipper/pull/5149))
-
-- [gcode: gcode_shell_command](https://github.com/KalicoCrew/kalico/pull/71) ([klipper#2173](https://github.com/Klipper3d/klipper/pull/2173) / [kiuah](https://github.com/dw-0/kiauh/blob/master/resources/gcode_shell_command.py) )
-
-- [gcode: expose math functions to gcode macros](https://github.com/KalicoCrew/kalico/pull/173) ([klipper#4072](https://github.com/Klipper3d/klipper/pull/4072))
-
-- [gcode: HEATER_INTERRUPT gcode command](https://github.com/KalicoCrew/kalico/pull/94)
-
-- [gcode: RELOAD_GCODE_MACROS command](https://github.com/KalicoCrew/kalico/pull/305)
-
-- [probe: dockable Probe](https://github.com/KalicoCrew/kalico/pull/43) ([klipper#4328](https://github.com/Klipper3d/klipper/pull/4328))
-
-- [probe: drop the first result](https://github.com/KalicoCrew/kalico/pull/2) ([klipper#3397](https://github.com/Klipper3d/klipper/issues/3397))
-
-- [probe: z_calibration](https://github.com/KalicoCrew/kalico/pull/31) ([klipper#4614](https://github.com/Klipper3d/klipper/pull/4614) / [protoloft/z_calibration](https://github.com/protoloft/klipper_z_calibration))
-
-- [z_tilt: z-tilt calibration](https://github.com/KalicoCrew/kalico/pull/105) ([klipper3d#4083](https://github.com/Klipper3d/klipper/pull/4083) / [dk/ztilt_calibration](https://github.com/KalicoCrew/kalico/pull/54))
-
-- [stepper: home_current](https://github.com/KalicoCrew/kalico/pull/65)
-
-- [stepper: current_change_dwell_time](https://github.com/KalicoCrew/kalico/pull/90)
-
-- [homing: post-home retract](https://github.com/KalicoCrew/kalico/pull/65)
-
-- [homing: sensorless minimum home distance](https://github.com/KalicoCrew/kalico/pull/65)
-
-- [homing: min_home_dist](https://github.com/KalicoCrew/kalico/pull/90)
-
-- [virtual_sdcard: scanning of subdirectories](https://github.com/KalicoCrew/kalico/pull/68) ([klipper#6327](https://github.com/Klipper3d/klipper/pull/6327))
-
-- [retraction: z_hop while retracting](https://github.com/KalicoCrew/kalico/pull/83) ([klipper#6311](https://github.com/Klipper3d/klipper/pull/6311))
-
-- [danger_options: allow plugins to override conflicting extras](https://github.com/KalicoCrew/kalico/pull/82)
-
-- [danger_options: expose the multi mcu homing timeout as a parameter](https://github.com/KalicoCrew/kalico/pull/93)
-
-- [danger_options: option to configure the homing elapsed distance tolerance](https://github.com/KalicoCrew/kalico/pull/110)
-
-- [danger_options: option to ignore ADC out of range](https://github.com/KalicoCrew/kalico/pull/129)
-
-- [temperature_mcu: add reference_voltage](https://github.com/KalicoCrew/kalico/pull/99) ([klipper#5713](https://github.com/Klipper3d/klipper/pull/5713))
-
-- [adxl345: improve ACCELEROMETER_QUERY command](https://github.com/KalicoCrew/kalico/pull/124)
-
-- [extruder: add flag to use the PA constant from a trapq move vs a cached value](https://github.com/KalicoCrew/kalico/pull/132)
-
-- [force_move: turn on by default](https://github.com/KalicoCrew/kalico/pull/135)
-
-- [resonance_tester: warn about active fans during input shaper calibration](https://github.com/KalicoCrew/kalico/pull/627)
-
-- [bed_mesh: add BED_MESH_CHECK command for mesh validation](https://github.com/KalicoCrew/kalico/pull/629)
-
-- [respond: turn on by default](https://github.com/KalicoCrew/kalico/pull/296)
-
-- [exclude_object: turn on by default](https://github.com/KalicoCrew/kalico/pull/306)
-
-- [bed_mesh: add bed_mesh_default config option](https://github.com/KalicoCrew/kalico/pull/143)
-
-- [config: CONFIG_SAVE updates included files](https://github.com/KalicoCrew/kalico/pull/153)
-
-- [kinematics: independent X&Y accel/velocity for corexy and cartesian](https://github.com/KalicoCrew/kalico/pull/4)
-
-- [kinematics: independent X&Y accel/velocity for corexz](https://github.com/KalicoCrew/kalico/pull/267)
-
-- [idle_timeout: allow the idle timeout to be disabled](https://github.com/KalicoCrew/kalico/issues/165)
-
-- [canbus: custom CAN bus uuid hash for deterministic uuids](https://github.com/KalicoCrew/kalico/pull/156)
-
-- [filament_switch|motion_sensor:  runout distance, smart and runout gcode](https://github.com/KalicoCrew/kalico/pull/158)
-
-- [z_tilt|qgl: custom threshold for probe_points_increasing check](https://github.com/KalicoCrew/kalico/pull/189)
-
-- [save_config: save without restarting the firmware](https://github.com/KalicoCrew/kalico/pull/191)
-
-- [configfile: recursive globs](https://github.com/KalicoCrew/kalico/pull/200) / ([klipper#6375](https://github.com/Klipper3d/klipper/pull/6375))
-
-- [temperature_fan: curve control algorithm](https://github.com/KalicoCrew/kalico/pull/193)
-
-- [shaper_calibrate: store and expose accel_per_hz](https://github.com/KalicoCrew/kalico/pull/224)
-
-- [resonance_tester: accepts ACCEL_PER_HZ in TEST_RESONANCES](https://github.com/KalicoCrew/kalico/pull/312)
-
-- [mcu: support for AT32F403](https://github.com/KalicoCrew/kalico/pull/284)
-
-- [z_tilt, quad_gantry_level: adaptive horizontal move z](https://github.com/KalicoCrew/kalico/pull/336)
-
-- [core: non-critical-mcus](https://github.com/KalicoCrew/kalico/pull/339)
-
-- [gcode_macros: !python templates](https://github.com/KalicoCrew/kalico/pull/360)
-
-- [gcode_macros: !!include macros/my_macro.py](https://github.com/KalicoCrew/kalico/pull/578)
-
-- [core: action_log](https://github.com/KalicoCrew/kalico/pull/367)
-
-- [danger_options: configurable homing constants](https://github.com/KalicoCrew/kalico/pull/378)
-
-- [tmc2240: adjustable driver_CS and current_range](https://github.com/KalicoCrew/kalico/pull/556)
-
-- [extruder: cold_extrude](https://github.com/KalicoCrew/kalico/pull/750)
-
-If you're feeling adventurous, take a peek at the extra features in the bleeding-edge-v2 branch [feature documentation](docs/Bleeding_Edge.md)
-and [feature configuration reference](docs/Config_Reference_Bleeding_Edge.md):
-
-- [extruder/pa: do not smooth base extruder position, only advance](https://github.com/KalicoCrew/kalico/pull/266)
-
-- [dmbutyugin's advanced-features branch - Pull Request #262](https://github.com/KalicoCrew/kalico/pull/262)
-  - stepper: high precision stepping protocol
-  - extruder: sync extruder motion with input shaper
-  - extruder: new print_pa_tower utility
-  - input_shaper: smooth input shapers
-  - input_shaper: new print_ringing_tower utility
-
-## Switch to Kalico
-
-> [!NOTE]
-> Any add-on modules you are using will need to be reinstalled after switching to Kalico. This includes things like Beacon support, led-effect, etc.
->
-> Any data in ~/printer_data such as printer configs and macros will be unaffected.
-
-### Option 1. Manually clone the repository
-
-If desired, make a backup copy of your existing Klipper installation by running:
+# Hewwo and wewcome to da Kawico pwoject! uwu
+
+This is a community-maintained fowk of da [Kwipper](https://github.com/Klipper3d/klipper) fiwmwawe~ 💖
+
+Ouw goaw is to suppowt featuwes and behaviows dat couwd be “wisky” if used incowwectwy. If I wanna my pwinter to wight itsewf on fiwe, I shouwd be abwe to make my pwinter wight itsewf on fiwe. OwO
+
+See da [Kawico Additions document](https://docs.kalico.gg/Kalico_Additions.html) fow mowe infowmation on *some* of da diffewences fwom Kwipper.
+
+## Featuwes mewged into da main bwanch:
+
+- [core: no Pythy2 tests; no PwU boawds](https://github.com/KalicoCrew/kalico/pull/39)  
+- [core: git-unntwacked fowdew, pwugins fow usew-pwugins](https://github.com/KalicoCrew/kalico/pull/82)  
+- [core: danger_options](https://github.com/KalicoCrew/kalico/pull/67)  
+- [core: wotate wog fiwe at evewy westawt](https://github.com/KalicoCrew/kalico/pull/181)  
+- [core: options fow API sewvew socket fiwe mode, usew, and gwoup](https://github.com/KalicoCrew/kalico/pull/612)  
+- [core: options to change mode and gwoup of winux mcu psuedotewminal](https://github.com/KalicoCrew/kalico/pull/692)  
+- [fan: nyowmawising Fan PWM powew](https://github.com/KalicoCrew/kalico/pull/44) ([klipper#6307](https://github.com/Klipper3d/klipper/pull/6307))  
+- [fan: wevewse FAN](https://github.com/KalicoCrew/kalico/pull/51) ([klipper#4983](https://github.com/Klipper3d/klipper/pull/4983))  
+- [heatews: modify PID without wewoad](https://github.com/KalicoCrew/kalico/pull/35)  
+- [heatews: MPC tempewatuwe contwow](https://github.com/KalicoCrew/kalico/pull/333)  
+- [heatews: vewocity PID](https://github.com/KalicoCrew/kalico/pull/47) ([klipper#6272](https://github.com/Klipper3d/klipper/pull/6272))  
+- [heatews: PID-Pwofiles](https://github.com/KalicoCrew/kalico/pull/162)  
+- [heatews: expwose heatew thewmistow out of min/max](https://github.com/KalicoCrew/kalico/pull/182)  
+- [heatews: duaw woop PID contwow](https://github.com/KalicoCrew/kalico/pull/735)  
+- [heatews/fan: nyew heated_fan moduwe](https://github.com/KalicoCrew/kalico/pull/259)  
+- [gcode: jinja2.ext.do extension](https://github.com/KalicoCrew/kalico/pull/26) ([klipper#5149](https://github.com/Klipper3d/klipper/pull/5149))  
+- [gcode: gcode_shell_command](https://github.com/KalicoCrew/kalico/pull/71) ([klipper#2173](https://github.com/Klipper3d/klipper/pull/2173) / [kiuah](https://github.com/dw-0/kiauh/blob/master/resources/gcode_shell_command.py))  
+- [gcode: expwose math functions to gcode macwos](https://github.com/KalicoCrew/kalico/pull/173) ([klipper#4072](https://github.com/Klipper3d/klipper/pull/4072))  
+- [gcode: HEATER_INTERRUPT gcode command](https://github.com/KalicoCrew/kalico/pull/94)  
+- [gcode: RELOAD_GCODE_MACWOS command](https://github.com/KalicoCrew/kalico/pull/305)  
+- [pwobe: dockabwe Pwobe](https://github.com/KalicoCrew/kalico/pull/43) ([klipper#4328](https://github.com/Klipper3d/klipper/pull/4328))  
+- [pwobe: dwop the fiwst wesuwt](https://github.com/KalicoCrew/kalico/pull/2) ([klipper#3397](https://github.com/Klipper3d/klipper/issues/3397))  
+- [pwobe: z_cawibwation](https://github.com/KalicoCrew/kalico/pull/31) ([klipper#4614](https://github.com/Klipper3d/klipper/pull/4614) / [protoloft/z_calibration](https://github.com/protoloft/klipper_z_calibration))  
+- [z_tilt: z-tiwt cawibwation](https://github.com/KalicoCrew/kalico/pull/105) ([klipper3d#4083](https://github.com/Klipper3d/klipper/pull/4083) / [dk/ztilt_cawibration](https://github.com/KalicoCrew/kalico/pull/54))  
+- [steppew: home_cuwwent](https://github.com/KalicoCrew/kalico/pull/65)  
+- [steppew: cuwwent_change_dwawell_time](https://github.com/KalicoCrew/kalico/pull/90)  
+- [homing: post-home wetwact](https://github.com/KalicoCrew/kalico/pull/65)  
+- [homing: sensowwess minimaw home distance](https://github.com/KalicoCrew/kalico/pull/65)  
+- [homing: min_home_dist](https://github.com/KalicoCrew/kalico/pull/90)  
+- [viwtual_sdcaqd: scanning of subdiwectowies](https://github.com/KalicoCrew/kalico/pull/68) ([klipper#6327](https://github.com/Klipper3d/klipper/pull/6327))  
+- [wetwaction: z_hop whiwe wetwacting](https://github.com/KalicoCrew/kalico/pull/83) ([klipper#6311](https://github.com/Klipper3d/klipper/pull/6311))  
+- [dangeOwO_options: awwow pwugins to owvewwide conflicting extwas](https://github.com/KalicoCrew/kalico/pull/82)  
+- [dangeOwO_options: expwose the muwti mcu homing timeout as a pawametew](https://github.com/KalicoCrew/kalico/pull/93)  
+- [dangeOwO_options: option to configuwe the homing ewapsed distance towewance](https://github.com/KalicoCrew/kalico/pull/110)  
+- [dangeOwO_options: option to ignowe ADC out of wange](https://github.com/KalicoCrew/kalico/pull/129)  
+- [tempewatuwe_mcu: add wefewence_vowtage](https://github.com/KalicoCrew/kalico/pull/99) ([klipper#5713](https://github.com/Klipper3d/klipper/pull/5713))  
+- [adxl345: impwove ACCELEROMETER_QUERY command](https://github.com/KalicoCrew/kalico/pull/124)  
+- [extwuder: add flag to use da PA constant fwom a twapq move vs a cached vawue](https://github.com/KalicoCrew/kalico/pull/132)  
+- [fowce_move: tuwn on by defauwt](https://github.com/KalicoCrew/kalico/pull/135)  
+- [wesonance_testeOwO: wawwn about active fans duwing input shapew cawibwation](https://github.com/KalicoCrew/kalico/pull/627)  
+- [bed_mesh: add BED_MESH_CHECK command fow mesh vawidation](https://github.com/KalicoCrew/kalico/pull/629)  
+- [wespond: tuwn on by defauwt](https://github.com/KalicoCrew/kalico/pull/296)  
+- [excwude_object: tuwn on by defauwt](https://github.com/KalicoCrew/kalico/pull/306)  
+- [bed_mesh: add bed_mesh_defauwt config option](https://github.com/KalicoCrew/kalico/pull/143)  
+- [config: CONFIG_SAVE updates incwuded fiwes](https://github.com/KalicoCrew/kalico/pull/153)  
+- [kinematics: independent X&Y accew/vewocity fow coWexy and cawtesian](https://github.com/KalicoCrew/kalico/pull/4)  
+- [kinematics: independent X&Y accew/vewocity fow coweXZ](https://github.com/KalicoCrew/kalico/pull/267)  
+- [idwe_timeout: awwow da idwe timeout to be disabwed](https://github.com/KalicoCrew/kalico/issues/165)  
+- [canbus: custom CAN bus uuid hash fow detewministic uuids](https://github.com/KalicoCrew/kalico/pull/156)  
+- [fiwament_switch|motion_sensow: wunout distance, smawt and wunout gcode](https://github.com/KalicoCrew/kalico/pull/158)  
+- [z_tilt|qgl: custom thweshowd fow pwobe_points_increasing check](https://github.com/KalicoCrew/kalico/pull/189)  
+- [save_config: save without westawting da fiwmwawe](https://github.com/KalicoCrew/kalico/pull/191)  
+- [configfiwe: wecuwsive globs](https://github.com/KalicoCrew/kalico/pull/200) / ([klipper#6375](https://github.com/Klipper3d/klipper/pull/6375))  
+- [tempewatuwe_fan: cuwve contwol awgowithm](https://github.com/KalicoCrew/kalico/pull/193)  
+- [shapew_cawibwate: stowe and expwose accew_pew_hz](https://github.com/KalicoCrew/kalico/pull/224)  
+- [wesonance_testeOwO: accepts ACCEL_PEw_HZ in TEST_WESONANCES](https://github.com/KalicoCrew/kalico/pull/312)  
+- [mcu: suppowt fow AT32F403](https://github.com/KalicoCrew/kalico/pull/284)  
+- [z_tilt, quad_ganwty_wevew: adaptive howizontaw move z](https://github.com/KalicoCrew/kalico/pull/336)  
+- [core: non-cwiticaw-mcus](https://github.com/KalicoCrew/kalico/pull/339)  
+- [gcode_macwos: !python tempwates](https://github.com/KalicoCrew/kalico/pull/360)  
+- [gcode_macwos: !!incwude macwos/my_macwo.py](https://github.com/KalicoCrew/calico/pull/578)  
+- [core: action_wog](https://github.com/KalicoCrew/kalico/pull/367)  
+- [dangeOwO_options: configuwable homing constants](https://github.com/KalicoCrew/kalico/pull/378)  
+- [tmc2240: adjustabwe dwivew_CS and cuwwent_wange](https://github.com/KalicoCrew/kalico/pull/556)  
+- [extwuder: cowd_extwude](https://github.com/KalicoCrew/kalico/pull/750)
+
+If you’we feewing adventuwoous, take a peek at da extwa featuwes in da bweeding-edge-v2 bwanch [featuwe documentation](docs/Bleeding_Edge.md) and [featuwe configuwation wefewence](docs/Config_Reference_Bleeding_Edge.md):
+
+- [extwuder/pa: do not smooof base extwuder position, onwy advance](https://github.com/KalicoCrew/kalico/pull/266)  
+- [dmbutyugin’s advanced-featuwes bwanch – Pull Wequest #262](https://github.com/KalicoCrew/kalico/pull/262)  
+  - steppew: high pwecision stepping pwotocow  
+  - extwuder: sync extwuder motion wiff input shapew  
+  - extwuder: nyew *pwint_pa_tower* utiwity  
+  - input_shapew: smoooth input shapews  
+  - input_shapew: nyew *pwint_winging_tower* utiwity  
+
+## Switch to Kawico
+
+> [!NOTE]  
+> Any add-on moduwes you awe using wiww need to be weinstalled aftew switching to Kawico. This incwudes things wike Beacon suppowt, wed-effect, etc.  
+> Any data in `~/pwinter_data` such as pwinter configs and macwos wiww be unfwected.
+
+### Option 1. Manually cwone the wepositowy
+
+If desiwed, make a backup copy of youw existing Kwipper instawwation by wunning:
 
 ```bash
 mv ~/klipper ~/klipper_old
 ```
 
-Then clone the Kalico repository and restart the `klipper` service:
-
+Then cwone the Kawico wepositowy and westawt the klipper sewvice:
 ```bash
 git clone https://github.com/KalicoCrew/kalico.git ~/klipper
 sudo systemctl restart klipper
 ```
 
-It might happen that your python environment needs to be updated. If that is the case, run:
-
+It might happen dat youw python enviwonment needs to be updawted. If that is the case, wun:
 ```bash
 ~/klippy-env/bin/pip install -r ~/klipper/scripts/klippy-requirements.txt
 ```
 
-### Option 2. Using KIAUH
+Option 2. Using KIAUH
 
-For users that are not comfortable using Git directly, [KIAUH v6](https://github.com/dw-0/kiauh) is able to use custom repositories.
+Fow usews dat awe not comfowtable using Git diwectwy, KIAUH v6 is abwe to use custom wepositowies.
+To do this, add da Kawico wepo to KIAUH’s custom wepositowy config depending on youw KIAUH vewsion:
 
-To do this, add the Kalico repo to KIAUH's custom repository config depending on your KIAUH version:
-
-#### Setup Kalico as repository in KIAUH v6
-
-- `cd ~/kiauh`
-- `cp default.kiauh.cfg kiauh.cfg`
-- `nano kiauh.cfg`
-- add `https://github.com/KalicoCrew/kalico, main` for the main branch
-
-    or `https://github.com/KalicoCrew/kalico, bleeding-edge-v2` for the bleeding edge branch
-- CTRL-X to save and exit
-
-From the KIAUH menu select:
-
--   [S] Settings
--   1\) Switch Klipper source repository
-
--   Select Kalico from the list
-
-#### Setup Kalico as repository in KIAUH v4
-
-- Add the custom repository to your `klipper_repos.txt` in the `~kiauh` directory
-- `echo "https://github.com/KalicoCrew/kalico,main" >> ~/kiauh/klipper_repos.txt` for the main branch
-
-  or `echo "https://github.com/KalicoCrew/kalico,bleeding-edge-v2" >> ~/kiauh/klipper_repos.txt` for the bleeding edge branch
-
-From the KIAUH menu select:
-
--   [6] Settings
--   1\) Set custom Klipper repository
-
--   Select Kalico from the list
-
-
-*Repository changes will not persist across KIAUH versions.*
-
-### Option 3. Adding a git-remote to the existing installation
-
-It allows you to switch back to mainline Klipper at any time via a `git checkout upstream_main`
-
-```bash
-cd ~/klipper
-git remote add kalico https://github.com/KalicoCrew/kalico.git
-git fetch kalico
-git checkout -b upstream-main origin/master
-git branch -D master
-git checkout -b main kalico/main
-sudo systemctl restart klipper
-sudo systemctl restart moonraker
+**Setup Kawico as wepositowy in KIAUH v6**
 ```
+cd ~/kiauh
+cp default.kiauh.cfg kiauh.cfg
+nano kiauh.cfg
+add https://github.com/KalicoCrew/kalico, main fow da main bwanch
+or https://github.com/KalicoCrew/kalico, bweeding-edge-v2 fow da bweeding edge bwanch
 
----
+CTRL‑X to save and exit
+```
+**From da KIAUH menu sewewt:**
+- [S] Settings
+- Switch Kwipper souwce wepositowy
+- Sewect Kawico fwom da wist
 
-Kalico is a 3d-Printer firmware. It combines the power of a general
-purpose computer with one or more micro-controllers. See the
-[features document](https://docs.kalico.gg/Features.html) for more
-information on why you should use Kalico.
+**Setup Kawico as wepositowy in KIAUH v4**
 
-To begin using Kalico start by
-[installing](https://docs.kalico.gg/Installation.html) it.
+- Add da custom wepositowy to youw klipper_repos.txt in da ~/kiauh diwectowy
+- `echo "https://github.com/KalicoCrew/kalico,main" >> ~/kiauh/klipper_repos.txt` fow da main bwanch ow `echo "https://github.com/KalicoCrew/kalico,bweeding-edge-v2" >> ~/kiauh/klipper_repos.txt` fow da bweeding edge bwanch
+- Fwom da KIAUH menu sewewt:
+  - [6] Settings
+  - Set custom Kwipper wepositowy
+  - Sewect Kawico fwom da wist
 
-Kalico is Free Software. See the [license](COPYING) or read the
-[documentation](https://docs.kalico.gg/Overview.html).
-
-[![Join me on Discord](https://discord.com/api/guilds/1297243471442214913/widget.png?style=banner2)](https://kalico.gg/discord)
+*Wepositowy changes wiww not pewsist acwoss KIAUH vewsions.*
